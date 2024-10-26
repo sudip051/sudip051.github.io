@@ -1,9 +1,171 @@
-<html>
-  <head>
-    <title>Sudip Adhikari</title>
-  </head>
-  <body>
-    <h1>This is for test purpose</h1>
-    <p>HTTPS is successfully implemented</p>
-  </body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Basic Styles */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        header {
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+        header nav a {
+            color: #fff;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            width: 90%;
+            max-width: 1000px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Portfolio section */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .project-card {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        /* Skills */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skills-list li {
+            background-color: #333;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            list-style: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .projects {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Name</h1>
+        <p>Web Developer | Designer | Programmer</p>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <p>Introduce yourself here. Mention your passion, experience, or key achievements.</p>
+    </section>
+
+    <section id="portfolio" class="section">
+        <h2>Portfolio</h2>
+        <div class="projects">
+            <div class="project-card">
+                <img src="project1.jpg" alt="Project 1">
+                <h3>Project 1</h3>
+                <p>Brief description of the project.</p>
+            </div>
+            <div class="project-card">
+                <img src="project2.jpg" alt="Project 2">
+                <h3>Project 2</h3>
+                <p>Brief description of the project.</p>
+            </div>
+            <!-- Add more project cards as needed -->
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <h2>Skills</h2>
+        <ul class="skills-list">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>React</li>
+            <!-- Add more skills as needed -->
+        </ul>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact</h2>
+        <p>Email: your.email@example.com</p>
+        <p>Phone: (123) 456-7890</p>
+        <p>LinkedIn: <a href="#">LinkedIn Profile</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
+    </footer>
+</body>
 </html>
