@@ -1,1 +1,167 @@
 
+ * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800');
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .logo {
+            float: left;
+        }
+
+        .logo h3 {
+            color: #fff;
+            font-weight: 600;
+            margin-top: 0.5em;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .highlight {
+            color: #3498db;
+        }
+
+        nav {
+            float: right;
+        }
+
+        nav ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: 0.4s ease;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            background-color: #3498db;
+            color: #fff;
+            border-color: #3498db;
+        }
+
+        .active a {
+            background-color: #3498db;
+            color: #fff;
+            border-color: #3498db;
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+        }
+
+        .title h1 {
+            color: #fff;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            color: #f1f1f1;
+            font-size: 22px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .tech-stack {
+            color: #3498db;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            border: 2px solid #3498db;
+            padding: 12px 30px;
+            color: #fff;
+            text-decoration: none;
+            transition: 0.4s ease;
+            border-radius: 4px;
+            font-weight: 500;
+            margin: 0 10px;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .social-icons {
+            margin-top: 40px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 24px;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .logo, nav {
+                float: none;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            .title h1 {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+        }
