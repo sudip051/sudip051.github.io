@@ -4,15 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sudip Adhikari | .NET Developer</title>
-  <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <style>
+    /* ── BASE RESET & LAYOUT ───────────────────────────────────── */
+    * { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: #111; }
+    body { overflow-x: hidden; }
+    /* Matrix canvas behind everything */
+    #matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+    /* ── HEADER & BACKGROUND ──────────────────────────────────── */
+    header {
+      position: relative; height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.6);
+    }
+
+    /* ── NAVBAR & LOGO ────────────────────────────────────────── */
+    .main { position: absolute; top: 20px; width: 100%; max-width: 1200px; margin: auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+    .logo h3 { color: #fff; font-weight: 600; letter-spacing: 1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+    .highlight { color: #3498db; }
+    nav ul { list-style: none; display: flex; gap: 10px; }
+    nav ul li a { color: #fff; text-decoration: none; padding: 8px 20px; border: 1px solid transparent; border-radius: 4px; transition: 0.4s; }
+    nav ul li a:hover, nav ul li.active a { background: #3498db; border-color: #3498db; }
+
+    /* ── CONTENT BLOCK ───────────────────────────────────────── */
+    .content { text-align: center; color: #fff; }
+    .title h1 { font-size: 3rem; margin-bottom: 10px; }
+    .subtitle { font-size: 1.2rem; font-weight: 300; }
+    .tech-stack { color: #0f0; font-family: monospace; margin: 20px 0; }
+
+    /* ── TYPEWRITER EFFECT ───────────────────────────────────── */
+    .typewriter { display: inline-block; overflow: hidden; white-space: nowrap; border-right: 3px solid #fff;
+      animation: typing 3s steps(30,end), blink-caret 0.7s step-end infinite; }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blink-caret { 0%,100% { border-color: transparent; } 50% { border-color: #fff; } }
+
+    /* ── CODE SNIPPET BOX ────────────────────────────────────── */
+    .code-box { background: rgba(0,0,0,0.7); padding: 15px; border-radius: 8px; width: 80%; max-width: 600px; margin: 20px auto; }
+    .code-box pre { color: #0f0; font-family: 'Source Code Pro', monospace; font-size: 0.9rem; line-height: 1.4; }
+
+    /* ── BUTTONS & RIPPLE ────────────────────────────────────── */
+    .buttons { margin: 20px 0; }
+    .btn { position: relative; display: inline-block; border: 2px solid #3498db; padding: 10px 25px; color: #fff; text-decoration: none; overflow: hidden; border-radius: 4px; transition: transform .3s; margin: 0 10px; }
+    .btn::after { content: ''; position: absolute; width: 100px; height: 100px; background: rgba(52,152,219,0.4); border-radius: 50%; transform: scale(0); opacity: 0; pointer-events: none; transition: transform .5s, opacity .8s; }
+    .btn:active::after { transform: scale(3); opacity: 1; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(52,152,219,0.4); }
+    .btn-primary { background: #3498db; }
+    .btn-secondary { background: transparent; }
+
+    /* ── SOCIAL ICONS ────────────────────────────────────────── */
+    .social-icons { margin-top: 20px; display: flex; justify-content: center; gap: 15px; }
+    .social-icons a { color: #fff; font-size: 1.5rem; transition: transform .3s; }
+    .social-icons a:hover { transform: scale(1.2); }
+
+    /* ── FADE-IN ON SCROLL ────────────────────────────────────── */
+    .animate-fade { opacity: 0; transform: translateY(20px); transition: all .6s ease-out; }
+    .fade-in { opacity: 1; transform: translateY(0); }
+    @keyframes fadeInUp { from { opacity:0; transform: translateY(30px);} to { opacity:1; transform: translateY(0);} }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 768px) { .title h1 { font-size: 2rem; } .tech-stack { font-size: .9rem; } }
+  </style>
 </head>
 <body>
+  <!-- Matrix Rain Canvas -->
+  <canvas id="matrix"></canvas>
+
   <header>
     <div class="main">
-      <div class="logo">
-        <h3>SUDIP <span class="highlight">ADHIKARI</span></h3>
-      </div>
+      <div class="logo"><h3>SUDIP <span class="highlight">ADHIKARI</span></h3></div>
       <nav>
         <ul>
           <li class="active"><a href="#home">Home</a></li>
@@ -24,32 +84,50 @@
       </nav>
     </div>
 
-    <!-- parallax speed 0.5 -->
-    <div class="content" id="home" data-speed="0.5">
-      <div class="title">
-        <!-- typewriter + fade -->
-        <h1 class="typewriter animate-fade">Technology Enthusiast</h1>
-      </div>
+    <div class="content" id="home">
+      <div class="title animate-fade"><h1 class="typewriter">Coding Enthusiast</h1></div>
       <p class="subtitle animate-fade">Building robust software solutions with modern technologies</p>
       <p class="tech-stack animate-fade">C# | ASP.NET Core | MVC | Web API | Entity Framework | SQL Server | JavaScript</p>
+
+      <div class="code-box animate-fade"><pre id="code"></pre></div>
 
       <div class="buttons animate-fade">
         <a href="#projects" class="btn btn-primary">View Portfolio</a>
         <a href="resume.pdf" class="btn btn-secondary" download>Download Resume</a>
       </div>
 
-      <div class="social-icons">
-        <!-- cascading fade-ins -->
-        <a href="#" class="animate-fade"><i class="fab fa-github"></i></a>
-        <a href="#" class="animate-fade"><i class="fab fa-linkedin"></i></a>
-        <a href="#" class="animate-fade"><i class="fab fa-twitter"></i></a>
-        <a href="mailto:sudipadk051@gmail.com" class="animate-fade"><i class="fas fa-envelope"></i></a>
+      <div class="social-icons animate-fade">
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="mailto:sudipadk051@gmail.com"><i class="fas fa-envelope"></i></a>
       </div>
     </div>
   </header>
 
   <script>
-    // 1) Smooth scroll
+    // MATRIX RAIN EFFECT
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const cols = canvas.width / 20;
+    const drops = Array(Math.floor(cols)).fill(1);
+    const letters = '01';
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0F0';
+      ctx.font = '16px monospace';
+      drops.forEach((y, x) => {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, x * 20, y * 20);
+        drops[x] = y * 20 > canvas.height && Math.random() > 0.975 ? 0 : y + 1;
+      });
+    }
+    setInterval(drawMatrix, 50);
+
+    // SMOOTH SCROLL
     document.querySelectorAll('nav ul li a').forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
@@ -58,33 +136,51 @@
       });
     });
 
-    // 2) Fade-in on scroll
-    const observer = new IntersectionObserver((entries) => {
+    // FADE-IN ON SCROLL
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('fade-in');
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.animate-fade').forEach(el => observer.observe(el));
 
-    // 3) Parallax scroll for data-speed
-    const layers = document.querySelectorAll('[data-speed]');
-    window.addEventListener('scroll', () => {
-      layers.forEach(layer => {
-        const speed = parseFloat(layer.dataset.speed);
-        layer.style.transform = `translateY(${window.scrollY * speed}px)`;
-      });
-    });
-
-    // 4) Button ripple effect
+    // BUTTON RIPPLE
     document.querySelectorAll('.btn').forEach(btn => {
       btn.addEventListener('click', e => {
         const rect = btn.getBoundingClientRect();
-        btn.style.setProperty('--x', `${e.clientX - rect.left - 50}px`);
-        btn.style.setProperty('--y', `${e.clientY - rect.top - 50}px`);
+        const x = e.clientX - rect.left - 50;
+        const y = e.clientY - rect.top - 50;
+        btn.style.setProperty('--x', `${x}px`);
+        btn.style.setProperty('--y', `${y}px`);
       });
     });
+
+    // CODE TYPING EFFECT
+    const codeEl = document.getElementById('code');
+    const codeLines = [
+      'public class HelloWorld {',
+      '  public static void Main(string[] args) {',
+      '    Console.WriteLine("Hello, World!");',
+      '  }',
+      '}'
+    ];
+    let lineIndex = 0, charIndex = 0;
+    function typeCode() {
+      if (lineIndex < codeLines.length) {
+        const line = codeLines[lineIndex];
+        if (charIndex < line.length) {
+          codeEl.textContent += line.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeCode, 100);
+        } else {
+          codeEl.textContent += '\n';
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(typeCode, 300);
+        }
+      }
+    }
+    setTimeout(typeCode, 1000);
   </script>
 </body>
 </html>
