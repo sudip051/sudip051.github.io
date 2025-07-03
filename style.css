@@ -1,262 +1,210 @@
-/* ── BASE RESET & LAYOUT ───────────────────────────────────────────────────── */
-
+/* ── BASE RESET & LAYOUT ───────────────────────────────────── */
 * {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
 }
-
 html {
-  scroll-behavior: smooth; /* smooth scroll */
+  scroll-behavior: smooth;
+  background: #111;
+}
+body {
+  overflow-x: hidden;
+}
+/* Matrix canvas behind everything */
+#matrix {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
 }
 
-/* ── HEADER & BACKGROUND ───────────────────────────────────────────────────── */
-
+/* ── HEADER & BACKGROUND ──────────────────────────────────── */
 @keyframes gradientBG {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
 header {
-  /* animated multi-color gradient overlay + placeholder image */
-  background: 
-    linear-gradient(-45deg,
-      rgba(52,152,219,0.6),
-      rgba(155,89,182,0.6),
-      rgba(241,196,15,0.6),
-      rgba(231,76,60,0.6)
-    ),
-    url('/api/placeholder/1200/800') center/cover no-repeat;
-  height: 100vh;
   position: relative;
-  animation: gradientBG 20s ease infinite;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);
+  /* Optional: uncomment to add shifting gradient behind the canvas */
+  /* background:
+      linear-gradient(-45deg,
+        rgba(52,152,219,0.6),
+        rgba(155,89,182,0.6),
+        rgba(241,196,15,0.6),
+        rgba(231,76,60,0.6)
+      ) center/cover no-repeat;
+     animation: gradientBG 20s ease infinite; */
 }
 
-/* ── NAVBAR & LOGO ────────────────────────────────────────────────────────── */
-
+/* ── NAVBAR & LOGO ────────────────────────────────────────── */
 .main {
+  position: absolute;
+  top: 20px;
+  width: 100%;
   max-width: 1200px;
   margin: auto;
-  padding: 20px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-.logo {
-  float: left;
-}
-
 .logo h3 {
   color: #fff;
   font-weight: 600;
-  margin-top: 0.5em;
   letter-spacing: 1px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
-
 .highlight {
   color: #3498db;
 }
-
-nav {
-  float: right;
-}
-
 nav ul {
   list-style: none;
-  margin-top: 15px;
+  display: flex;
+  gap: 10px;
 }
-
-nav ul li {
-  display: inline-block;
-  margin-left: 5px;
-}
-
 nav ul li a {
-  text-decoration: none;
   color: #fff;
+  text-decoration: none;
   padding: 8px 20px;
   border: 1px solid transparent;
   border-radius: 4px;
-  transition: 0.4s ease;
-  font-weight: 500;
+  transition: 0.4s;
 }
-
 nav ul li a:hover,
 nav ul li.active a {
-  background-color: #3498db;
-  color: #fff;
+  background: #3498db;
   border-color: #3498db;
 }
 
-/* ── CONTENT & PARALLAX ────────────────────────────────────────────────────── */
-
+/* ── CONTENT BLOCK & PARALLAX ────────────────────────────── */
 .content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
-  width: 80%;
-  /* enable parallax scroll */
-  will-change: transform;
+  color: #fff;
 }
-
 .content[data-speed] {
+  will-change: transform;
   transition: transform 0.1s linear;
 }
 
-/* ── TYPEWRITER EFFECT ────────────────────────────────────────────────────── */
-
+/* ── TYPEWRITER EFFECT ───────────────────────────────────── */
 .typewriter {
   display: inline-block;
-  overflow: hidden;      /* hide overflow */
-  white-space: nowrap;   /* one line only */
+  overflow: hidden;
+  white-space: nowrap;
   border-right: 3px solid #fff;
-  animation: typing 3s steps(30, end),
-             blink-caret 0.7s step-end infinite;
+  animation:
+    typing 3s steps(30,end),
+    blink-caret 0.7s step-end infinite;
 }
-
-/* reveal text */
 @keyframes typing {
   from { width: 0; }
   to   { width: 100%; }
 }
-
-/* blinking cursor */
 @keyframes blink-caret {
   0%,100% { border-color: transparent; }
   50%     { border-color: #fff; }
 }
 
-/* ── TEXT STYLES ───────────────────────────────────────────────────────────── */
-
-.title h1 {
-  color: #fff;
-  font-size: 48px;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+/* ── CODE SNIPPET BOX ────────────────────────────────────── */
+.code-box {
+  background: rgba(0,0,0,0.7);
+  padding: 15px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+.code-box pre {
+  color: #0f0;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
-.subtitle {
-  color: #f1f1f1;
-  font-size: 22px;
-  margin-bottom: 30px;
-  font-weight: 300;
-}
-
-.tech-stack {
-  color: #3498db;
-  margin-bottom: 40px;
-  font-size: 18px;
-}
-
-/* ── BUTTONS & RIPPLE EFFECT ──────────────────────────────────────────────── */
-
+/* ── BUTTONS & RIPPLE EFFECT ──────────────────────────────── */
 .buttons {
-  margin-top: 30px;
+  margin: 20px 0;
 }
-
 .btn {
   position: relative;
   display: inline-block;
   border: 2px solid #3498db;
-  padding: 12px 30px;
+  padding: 10px 25px;
   color: #fff;
   text-decoration: none;
   overflow: hidden;
   border-radius: 4px;
-  font-weight: 500;
+  transition: transform .3s;
   margin: 0 10px;
-  transition: transform 0.4s ease;
 }
-
-/* ripple pseudo-element */
 .btn::after {
   content: '';
   position: absolute;
-  width: 100px;
-  height: 100px;
-  background: rgba(255,255,255,0.4);
+  width: 100px; height: 100px;
+  background: rgba(52,152,219,0.4);
   border-radius: 50%;
   transform: scale(0);
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.5s, opacity 1s;
+  transition: transform .5s, opacity .8s;
 }
-
 .btn:active::after {
   transform: scale(3);
   opacity: 1;
-  transition: transform 0.5s, opacity 0.8s;
 }
-
-/* primary & secondary */
-.btn-primary {
-  background-color: #3498db;
-}
-
-.btn-secondary {
-  background-color: transparent;
-}
-
 .btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(52,152,219,0.4);
 }
-
-/* ── SOCIAL ICONS & STAGGERED FADE ───────────────────────────────────────── */
-
-.social-icons {
-  margin-top: 40px;
+.btn-primary {
+  background: #3498db;
+}
+.btn-secondary {
+  background: transparent;
 }
 
+/* ── SOCIAL ICONS ────────────────────────────────────────── */
+.social-icons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
 .social-icons a {
   color: #fff;
-  font-size: 24px;
-  margin: 0 10px;
-  text-decoration: none;
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(15px);
-  animation: fadeInUp 0.6s forwards;
+  font-size: 1.5rem;
+  transition: transform .3s;
+}
+.social-icons a:hover {
+  transform: scale(1.2);
 }
 
-/* stagger delays */
-.social-icons a:nth-child(1) { animation-delay: 0.3s; }
-.social-icons a:nth-child(2) { animation-delay: 0.5s; }
-.social-icons a:nth-child(3) { animation-delay: 0.7s; }
-.social-icons a:nth-child(4) { animation-delay: 0.9s; }
-
-/* ── FADE-IN ON SCROLL ────────────────────────────────────────────────────── */
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* ── FADE-IN ON SCROLL ────────────────────────────────────── */
 .animate-fade {
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.6s ease-out;
+  transition: all .6s ease-out;
 }
-
 .fade-in {
-  animation: fadeInUp 1s ease-out forwards;
+  opacity: 1;
+  transform: translateY(0);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── RESPONSIVE TWEAKS ──────────────────────────────────────────────────────── */
-
+/* ── RESPONSIVE ───────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .logo, nav { float: none; text-align: center; }
-  nav ul { margin-top: 20px; }
-  .title h1 { font-size: 36px; }
-  .subtitle { font-size: 18px; }
+  .title h1 { font-size: 2rem; }
+  .tech-stack { font-size: .9rem; }
   .btn { margin: 10px 5px; }
 }
